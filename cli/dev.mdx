@@ -1,0 +1,49 @@
+---
+title: burn0 dev
+description: "Run your app with burn0 cost tracking"
+---
+
+# burn0 dev
+
+Runs your app with burn0 preloaded — no code changes needed.
+
+```bash
+npx burn0 dev -- node app.js
+npx burn0 dev -- npm start
+npx burn0 dev -- next dev
+```
+
+## How it works
+
+`burn0 dev` uses Node.js `--require` to preload burn0 before your app starts. This means:
+
+- No `import '@burn0/burn0'` needed in your code
+- Works with any Node.js app
+- Cost tracking is active for the entire process
+
+## Examples
+
+```bash
+# Run a Node.js script
+npx burn0 dev -- node server.js
+
+# Run an npm script
+npx burn0 dev -- npm run start
+
+# Run Next.js dev server
+npx burn0 dev -- npx next dev
+
+# Run with tsx
+npx burn0 dev -- npx tsx src/index.ts
+```
+
+## When to use `burn0 dev` vs `import`
+
+| Approach | Best for |
+|---|---|
+| `import '@burn0/burn0'` | Production, permanent tracking |
+| `burn0 dev -- ...` | Quick testing, no code changes |
+
+<Tip>
+Use `burn0 dev` when you want to try burn0 on an existing project without modifying any files. Use the `import` approach when you want permanent cost tracking.
+</Tip>

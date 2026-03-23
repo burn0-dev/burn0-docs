@@ -1,0 +1,34 @@
+---
+title: burn0 connect
+description: "Add your API key"
+---
+
+# burn0 connect
+
+Adds or updates your burn0 API key.
+
+```bash
+npx burn0 connect
+```
+
+## What it does
+
+1. Prompts for your API key (paste, get one free, or skip)
+2. Writes `BURN0_API_KEY` to your `.env` file
+3. Adds `.env` to `.gitignore` if missing
+
+## When to use
+
+- You skipped the API key during `burn0 init`
+- You want to switch to a different API key
+- You're setting up an existing project that already has burn0
+
+## API key format
+
+Keys start with `b0_sk_` followed by 32 hex characters:
+
+```
+b0_sk_a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4
+```
+
+Get a free key at [burn0.dev/dashboard/keys](https://burn0.dev/dashboard/keys).

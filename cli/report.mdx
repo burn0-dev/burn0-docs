@@ -1,0 +1,57 @@
+---
+title: burn0 report
+description: "Show cost summary"
+---
+
+# burn0 report
+
+Shows a cost breakdown for the last 7 days (or today with `--today`).
+
+```bash
+npx burn0 report
+npx burn0 report --today
+```
+
+## Output
+
+```
+  burn0 report ── last 7 days
+
+  Total: $12.47 (342 calls)
+
+  openai         $8.32   ██████████████░░░░░░  67%
+  anthropic      $3.15   ██████░░░░░░░░░░░░░░  25%
+  google-gemini  $0.85   ██░░░░░░░░░░░░░░░░░░   7%
+  resend         $0.15   ░░░░░░░░░░░░░░░░░░░░   1%
+
+  ── daily ──────────────────────────────────────
+
+  Mar 22   $3.41  ████████░░░░  openai $2.80 · anthropic $0.61
+  Mar 21   $2.18  █████░░░░░░░  openai $1.90 · anthropic $0.28
+  Mar 20   $1.95  █████░░░░░░░  openai $1.20 · gemini $0.75
+
+  ── projection ─────────────────────────────
+  ~$53/mo estimated (based on last 7 days)
+```
+
+## Data sources
+
+| Condition | Source |
+|---|---|
+| API key set + backend reachable | burn0 server (all environments) |
+| API key set + backend unreachable | Local ledger (`.burn0/costs.jsonl`) |
+| No API key | Local ledger |
+
+## Options
+
+| Flag | Description |
+|---|---|
+| `--today` | Show today's costs only (no daily breakdown) |
+
+## How costs are calculated
+
+- **LLM services**: Token-based pricing (input/output per million tokens)
+- **Pay-per-use APIs**: Per-request cost from the pricing registry
+- **Infrastructure**: Monthly plan cost (from your `burn0 init` config)
+
+Pricing data is fetched from the burn0 backend and cached locally for 24 hours.

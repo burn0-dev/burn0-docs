@@ -1,0 +1,79 @@
+---
+title: Introduction
+description: "One import tracks every API call in your stack"
+---
+
+# What is burn0?
+
+burn0 is a lightweight cost observability tool for developers. Add one import to your app and instantly see what every API call costs — LLMs, SaaS APIs, and infrastructure.
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Get up and running in 2 minutes
+  </Card>
+  <Card title="50+ Services" icon="grid" href="/reference/supported-services">
+    OpenAI, Stripe, Twilio, Supabase, and more
+  </Card>
+  <Card title="CLI Tools" icon="terminal" href="/cli/overview">
+    Terminal-first cost tracking
+  </Card>
+  <Card title="Dashboard" icon="chart-bar" href="/dashboard/overview">
+    Visual cost breakdown in the browser
+  </Card>
+</CardGroup>
+
+## How it works
+
+```bash
+npm i @burn0/burn0
+```
+
+Add one line to your app's entry file:
+
+```typescript
+import '@burn0/burn0'
+```
+
+That's it. burn0 automatically:
+
+1. **Intercepts** every outbound HTTP/fetch call
+2. **Identifies** which service it's calling (OpenAI, Stripe, Twilio, etc.)
+3. **Calculates** the cost based on the provider's pricing
+4. **Shows** costs in real-time in your terminal
+
+```
+  burn0 ▸ $4.32 today (47 calls) ── openai: $3.80 · anthropic: $0.52
+```
+
+## Two modes
+
+<Tabs>
+  <Tab title="Local Mode (no API key)">
+    Everything stays on your machine. Costs shown in terminal and stored in `.burn0/costs.jsonl`. No network calls to burn0.dev.
+
+    ```bash
+    # Just install and import — no signup needed
+    npm i @burn0/burn0
+    ```
+  </Tab>
+  <Tab title="Cloud Mode (with API key)">
+    Events sync to the burn0 dashboard for team visibility, historical trends, and alerts.
+
+    ```bash
+    # Get a free API key at burn0.dev
+    burn0 init
+    ```
+  </Tab>
+</Tabs>
+
+## What it tracks
+
+burn0 supports **50+ services** across three categories:
+
+| Category | Examples | Pricing |
+|---|---|---|
+| **LLM Providers** | OpenAI, Anthropic, Google Gemini, Mistral, Groq | Per-token (auto-calculated) |
+| **Pay-per-use APIs** | Stripe, Twilio, SendGrid, Resend, Google Maps | Per-request (auto-calculated) |
+| **Infrastructure** | Vercel, Supabase, AWS, Firebase, Neon | Monthly plan (you configure) |
+
+<Card title="See all 50+ supported services →" href="/reference/supported-services" />

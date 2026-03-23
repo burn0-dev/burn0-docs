@@ -1,0 +1,53 @@
+---
+title: Dashboard
+description: "Visual cost tracking in the browser"
+---
+
+# Dashboard
+
+The burn0 dashboard at [burn0.dev/dashboard](https://burn0.dev/dashboard) gives you a visual breakdown of your API costs across all projects.
+
+## Features
+
+### Cost overview
+
+The main dashboard shows:
+- **Monthly projection** — estimated monthly spend based on recent usage
+- **Period spend** — total cost for the selected period (today, 7 days, 30 days)
+- **Average cost per call** — helps identify expensive patterns
+- **Token usage** — total input/output tokens across all LLM calls
+
+### Per-project breakdown
+
+Each project shows:
+- **Category pills** — LLM, API, and Infrastructure costs at a glance
+- **Service breakdown** — cost per service with percentage bars
+- **Model-level detail** — expand any service to see per-model costs, tokens, latency, and error rates
+- **Daily sparkline** — visual trend of daily spend
+- **Infrastructure costs** — monthly plan costs for services like Vercel, Supabase
+
+### Live event feed
+
+Navigate to **Events** in the sidebar to see every API call in real-time:
+- Streams events via SSE as they happen
+- Shows service, model, tokens, latency, status code, and cost
+- Click any event for full details
+- Filter by service
+- Green "Live" indicator when connected
+
+## Getting started
+
+<Steps>
+  <Step title="Sign in">
+    Go to [burn0.dev/login](https://burn0.dev/login) and sign in with GitHub.
+  </Step>
+  <Step title="Create an API key">
+    Navigate to **API Keys** in the sidebar and create a new key.
+  </Step>
+  <Step title="Add the key to your project">
+    Add `BURN0_API_KEY=your_key` to your project's `.env` file, or run `npx burn0 connect`.
+  </Step>
+  <Step title="Run your app">
+    Start your app. Events will appear in the dashboard within seconds.
+  </Step>
+</Steps>

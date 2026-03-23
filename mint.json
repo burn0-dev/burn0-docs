@@ -1,0 +1,82 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "burn0",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#FF4500",
+    "light": "#FF6122",
+    "dark": "#FF4500",
+    "anchors": {
+      "from": "#FF4500",
+      "to": "#FF6122"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Dashboard",
+      "url": "https://burn0.dev/dashboard"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Get Started",
+    "url": "https://burn0.dev/login"
+  },
+  "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/burn0-dev/burn0"
+    },
+    {
+      "name": "NPM",
+      "icon": "npm",
+      "url": "https://www.npmjs.com/package/@burn0/burn0"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "introduction",
+        "quickstart"
+      ]
+    },
+    {
+      "group": "CLI",
+      "pages": [
+        "cli/overview",
+        "cli/init",
+        "cli/report",
+        "cli/dev",
+        "cli/connect"
+      ]
+    },
+    {
+      "group": "SDK",
+      "pages": [
+        "sdk/track",
+        "sdk/configuration"
+      ]
+    },
+    {
+      "group": "Dashboard",
+      "pages": [
+        "dashboard/overview",
+        "dashboard/api-keys"
+      ]
+    },
+    {
+      "group": "Reference",
+      "pages": [
+        "reference/supported-services"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/burn0-dev/burn0"
+  }
+}

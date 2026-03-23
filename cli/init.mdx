@@ -1,0 +1,79 @@
+---
+title: burn0 init
+description: "Interactive setup wizard"
+---
+
+# burn0 init
+
+Configures burn0 for your project. Runs automatically on `npm install` (in interactive terminals) or manually:
+
+```bash
+npx burn0 init
+```
+
+## What it does
+
+<Steps>
+  <Step title="API key">
+    Choose to paste an existing key, get a free one at burn0.dev/api, or skip (local mode).
+  </Step>
+  <Step title="Detect services">
+    Scans your `package.json` and codebase for known API services. Shows what it found with auto-priced or plan-selection prompts.
+  </Step>
+  <Step title="Configure">
+    Writes `.burn0/config.json`, adds `.burn0/` and `.env` to `.gitignore`.
+  </Step>
+</Steps>
+
+## Example
+
+```
+  burn0 — track every API cost
+
+  API key?
+    ○ Paste key
+    ○ Get one free → burn0.dev/api
+    ○ Skip — local mode
+
+  Auto-detected 4 services:
+
+    ✓  OpenAI               auto-priced
+    ✓  Stripe               auto-priced
+    ✓  Supabase             needs plan
+    ✓  Vercel               needs plan
+
+  Supabase — which plan? Pro — $25/mo
+  Vercel — which plan? Pro — $20/mo
+
+  Add other services you use? (Y/n)
+
+  ✓ Added .env to .gitignore (protects your API keys)
+  ✓ Config synced to burn0.dev
+
+  ✓ Setup complete
+
+  Add this to your entry file:
+    import '@burn0/burn0'
+
+  Then run your app to see costs.
+```
+
+## Files created
+
+| File | Purpose |
+|---|---|
+| `.burn0/config.json` | Project name, services, plan selections |
+| `.env` | `BURN0_API_KEY` (if provided) |
+| `.env.example` | `BURN0_API_KEY=` placeholder |
+
+## Re-running
+
+Run `npx burn0 init` again at any time to reconfigure. It overwrites the existing config.
+
+## CI / Non-interactive
+
+In CI/Docker (no TTY), init doesn't run. It prints:
+
+```
+[burn0] Run "npx burn0 init" to set up cost tracking.
+```

@@ -1,0 +1,120 @@
+---
+title: Quick Start
+description: "Start tracking API costs in 2 minutes"
+---
+
+## Install
+
+```bash
+npm i @burn0/burn0
+```
+
+The setup wizard runs automatically after install. You can skip it and configure later with `npx burn0 init`.
+
+## Add the import
+
+Add this as the **first import** in your app's entry file (before any SDK imports):
+
+<CodeGroup>
+```typescript app.ts
+import '@burn0/burn0'  // Must be first!
+
+import express from 'express'
+import OpenAI from 'openai'
+// ... rest of your app
+```
+
+```typescript index.ts (Next.js)
+import '@burn0/burn0'
+
+// ... your Next.js app
+```
+
+```typescript server.ts (any Node.js)
+import '@burn0/burn0'
+
+import { Hono } from 'hono'
+// ... rest of your app
+```
+</CodeGroup>
+
+<Warning>
+burn0 must be imported **before** any API SDK (OpenAI, Anthropic, etc.). It patches `fetch` and `http` globally — if an SDK initializes first, its calls won't be tracked.
+</Warning>
+
+## Run your app
+
+```bash
+npm start
+```
+
+You'll see costs appear in your terminal as API calls happen:
+
+```
+  burn0 ▸ $0.0038 today (3 calls) ── openai: $0.0035 · resend: $0.0003
+```
+
+When you stop the app (Ctrl+C):
+
+```
+  burn0 ▸ session: $0.0038 (3 calls, 2m 15s) ── today: $0.0038 ── ~$3.42/mo
+```
+
+## Check your costs
+
+```bash
+npx burn0 report
+```
+
+```
+  burn0 report ── last 7 days
+
+  Total: $12.47 (342 calls)
+
+  openai         $8.32   ██████████████░░░░░░  67%
+  anthropic      $3.15   ██████░░░░░░░░░░░░░░  25%
+  google-gemini  $0.85   ██░░░░░░░░░░░░░░░░░░   7%
+  resend         $0.15   ░░░░░░░░░░░░░░░░░░░░   1%
+
+  ── projection ─────────────────────────────
+  ~$53/mo estimated (based on last 7 days)
+```
+
+## Optional: Connect to the dashboard
+
+For team visibility and historical data, connect a free API key:
+
+<Steps>
+  <Step title="Sign up">
+    Go to [burn0.dev/login](https://burn0.dev/login) and sign in with GitHub.
+  </Step>
+  <Step title="Create an API key">
+    Navigate to **Dashboard → API Keys → Create new key**.
+  </Step>
+  <Step title="Add to your project">
+    ```bash
+    npx burn0 connect
+    ```
+    Paste your API key when prompted.
+  </Step>
+  <Step title="See costs in the dashboard">
+    Visit [burn0.dev/dashboard](https://burn0.dev/dashboard) to see costs across all your projects.
+  </Step>
+</Steps>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="CLI Reference" icon="terminal" href="/cli/overview">
+    All CLI commands
+  </Card>
+  <Card title="Track features" icon="code" href="/sdk/track">
+    Attribute costs to specific features
+  </Card>
+  <Card title="Dashboard" icon="chart-bar" href="/dashboard/overview">
+    Visual cost breakdown
+  </Card>
+  <Card title="Supported services" icon="grid" href="/reference/supported-services">
+    50+ services tracked
+  </Card>
+</CardGroup>

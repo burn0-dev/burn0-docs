@@ -1,0 +1,94 @@
+---
+title: Feature Attribution
+description: "Track costs per feature with track()"
+---
+
+# track()
+
+Attribute API costs to specific features in your app. This lets you see "my chat feature costs $8/day" instead of just "OpenAI costs $8/day".
+
+## Usage
+
+```typescript
+import { track } from '@burn0/burn0'
+
+// Wrap any async function that makes API calls
+await track('chat', { userId: 'user123' }, async () => {
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    messages: [{ role: 'user', content: 'Hello' }],
+  })
+  return response
+})
+```
+
+All API calls made inside the `track()` callback are tagged with the feature name and metadata.
+
+## Parameters
+
+```typescript
+track(feature: string, metadata: Record<string, string | number | boolean>, fn: () => Promise<void>): Promise<void>
+```
+
+| Parameter | Type | Description |
+|---|---|---|
+| `feature` | `string` | Feature name (e.g., `'chat'`, `'summarize'`, `'search'`) |
+| `metadata` | `object` | Key-value pairs (e.g., `{ userId: 'u123', tier: 'pro' }`) |
+| `fn` | `async function` | The function that makes API calls |
+
+## Alternative: startSpan
+
+For cases where a callback wrapper doesn't fit, use `startSpan`:
+
+```typescript
+import { startSpan } from '@burn0/burn0'
+
+const span = startSpan('chat', { userId: 'user123' })
+
+// ... make API calls ...
+
+span.end()
+```
+
+<Warning>
+Always call `span.end()` when done. Forgetting to end a span means subsequent API calls may be attributed to the wrong feature.
+</Warning>
+
+## Examples
+
+### Per-user cost tracking
+
+```typescript
+app.post('/api/chat', async (req, res) => {
+  const { userId, message } = req.body
+
+  await track('chat', { userId }, async () => {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'user', content: message }],
+    })
+    res.json({ response: response.choices[0].message.content })
+  })
+})
+```
+
+### Per-feature breakdown
+
+```typescript
+// Summarize feature
+await track('summarize', { documentId: doc.id }, async () => {
+  await anthropic.messages.create({ ... })
+})
+
+// Search feature
+await track('search', { query: q }, async () => {
+  await openai.embeddings.create({ ... })
+  await pinecone.query({ ... })
+})
+```
+
+## Viewing tracked data
+
+Feature and metadata are stored with each event and visible in:
+- The dashboard event detail view
+- `burn0 report` (coming soon: per-feature breakdown)

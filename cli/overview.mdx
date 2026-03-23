@@ -1,0 +1,37 @@
+---
+title: CLI Overview
+description: "burn0 command-line tools"
+---
+
+# CLI Commands
+
+burn0 includes a CLI for setup, reporting, and running your app with cost tracking.
+
+```bash
+npx burn0 <command>
+```
+
+| Command | Description |
+|---|---|
+| [`init`](/cli/init) | Interactive setup wizard |
+| [`report`](/cli/report) | Show cost summary |
+| [`dev`](/cli/dev) | Run your app with burn0 tracking |
+| [`connect`](/cli/connect) | Add your API key |
+| `status` | Show current configuration |
+| `--version` | Show burn0 version |
+
+## Live ticker
+
+When your app is running with burn0 imported, a live cost ticker appears on stderr:
+
+```
+  burn0 ▸ $4.32 today (47 calls) ── openai: $3.80 · anthropic: $0.52
+```
+
+This updates in-place as API calls happen. It doesn't interfere with your app's stdout output.
+
+When the process exits, a session summary is printed:
+
+```
+  burn0 ▸ session: $0.47 (12 calls, 4m 22s) ── today: $14.32 ── ~$430/mo
+```

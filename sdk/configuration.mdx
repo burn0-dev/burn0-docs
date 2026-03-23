@@ -1,0 +1,64 @@
+---
+title: Configuration
+description: "Environment variables and runtime modes"
+---
+
+# Configuration
+
+burn0 is configured via environment variables. No config files needed for basic usage.
+
+## Environment variables
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `BURN0_API_KEY` | No | — | API key for cloud mode. Get one at [burn0.dev](https://burn0.dev/login). |
+| `BURN0_API_URL` | No | `https://api.burn0.dev` | Override the backend URL (for self-hosting or development). |
+| `BURN0_DEBUG` | No | `false` | Set to `1` to enable debug logging. |
+| `BURN0_ENABLE_TEST` | No | — | Set to `1` to enable tracking in `NODE_ENV=test`. |
+
+## Runtime modes
+
+burn0 automatically detects the right mode based on your environment:
+
+| Mode | When | Behavior |
+|---|---|---|
+| **dev-local** | TTY + no API key | Ticker in terminal, local ledger, no cloud sync |
+| **dev-cloud** | TTY + API key | Ticker in terminal, local ledger, cloud sync |
+| **prod-cloud** | No TTY + API key | Silent, cloud sync only |
+| **prod-local** | No TTY + no API key | Logs warning, skips tracking entirely |
+| **test-disabled** | `NODE_ENV=test` | No tracking (default in tests) |
+| **test-enabled** | `NODE_ENV=test` + `BURN0_ENABLE_TEST=1` | Full tracking in tests |
+
+## Local storage
+
+burn0 stores data locally in the `.burn0/` directory:
+
+| File | Purpose |
+|---|---|
+| `.burn0/config.json` | Project config (services, plans) |
+| `.burn0/costs.jsonl` | Event ledger (last 7 days) |
+| `.burn0/pricing-cache.json` | Cached pricing data (24h TTL) |
+
+Add `.burn0/` to your `.gitignore` — `burn0 init` does this automatically.
+
+## Disabling burn0
+
+To temporarily disable burn0 without removing the import:
+
+```bash
+# In tests (default behavior)
+NODE_ENV=test npm test
+
+# In production without API key
+# burn0 automatically skips patching and logs a warning
+```
+
+## Restoring original behavior
+
+To programmatically unpatch `fetch` and `http`:
+
+```typescript
+import { restore } from '@burn0/burn0'
+
+restore()  // Removes all burn0 patches
+```
